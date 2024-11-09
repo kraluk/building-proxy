@@ -1,0 +1,18 @@
+spring:
+  application.name: building-proxy-tests
+
+management:
+  metrics:
+    enable:
+      tomcat: false
+      jvm: false
+      process: false
+      hikaricp: false
+      system: false
+      jdbc: false
+      http: false
+      logback: false
+
+logging:
+  level:
+    io.kraluk.buildingproxy: DEBUG

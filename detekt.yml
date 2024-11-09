@@ -1,0 +1,16 @@
+style:
+  active: false
+performance:
+  SpreadOperator:
+    active: false
+complexity:
+  LongParameterList:
+    active: true
+    functionThreshold: 5
+    constructorThreshold: 10
+exceptions:
+  TooGenericExceptionCaught:
+    active: true
+    exceptionNames:
+      - 'Error'
+      - 'Throwable'
