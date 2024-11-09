@@ -23,7 +23,7 @@ class TestRestClientTestConfiguration {
     val uriBuilderFactory = LocalHostUriBuilderFactory(environment)
 
     val httpClient = HttpClient.newBuilder()
-      .version(HttpClient.Version.HTTP_1_1)
+      .version(HttpClient.Version.HTTP_1_1) // as wiremock has issues with HTTP 2, we need to force HTTP 1.1
       .followRedirects(HttpClient.Redirect.NEVER)
       .build()
 

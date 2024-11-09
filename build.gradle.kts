@@ -59,6 +59,9 @@ dependencies {
 
   implementation("org.jetbrains.kotlin:kotlin-reflect")
 
+  implementation("io.github.resilience4j:resilience4j-circuitbreaker:${libs.versions.resilience4j.get()}")
+  implementation("io.github.resilience4j:resilience4j-retry:${libs.versions.resilience4j.get()}")
+
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.amshove.kluent:kluent:${testLibs.versions.kluent.get()}")
@@ -66,6 +69,10 @@ dependencies {
   testImplementation("org.awaitility:awaitility:${testLibs.versions.awaitility.get()}")
   testImplementation("org.awaitility:awaitility-kotlin:${testLibs.versions.awaitility.get()}")
   testImplementation("org.skyscreamer:jsonassert:${testLibs.versions.jsonassert.get()}")
+
+  integrationTestImplementation(
+    "org.springframework.cloud:spring-cloud-contract-wiremock:${testLibs.versions.springCloudContractWiremock.get()}",
+  )
 }
 
 tasks.test {

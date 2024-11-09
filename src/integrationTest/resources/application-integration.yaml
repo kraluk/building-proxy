@@ -16,3 +16,8 @@ management:
 logging:
   level:
     io.kraluk.buildingproxy: DEBUG
+
+wiremock:
+  server:
+    files: classpath:/wiremock
+    stubs: classpath:/wiremock/mappings

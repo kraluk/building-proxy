@@ -20,12 +20,14 @@ dependencyResolutionManagement {
           plugin("versions", "com.github.ben-manes.versions").version("0.51.0")
 
           version("springDoc", "2.6.0")
+          version("resilience4j", "2.2.0")
         }
         create("testLibs") {
           version("awaitility", "4.2.2")
           version("kluent", "1.73")
           version("mockitoKotlin", "5.4.0")
           version("jsonassert", "1.5.3")
+          version("springCloudContractWiremock", "4.1.4")
         }
         create("toolLibs") {
           version("ktlint", "0.50.0")
