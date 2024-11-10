@@ -1,0 +1,7 @@
+{
+  "type" : "about:blank",
+  "title" : "Not Found",
+  "status" : 404,
+  "detail" : "Building with id '666' does not exist!",
+  "instance" : "/v1/buildings/666"
+}

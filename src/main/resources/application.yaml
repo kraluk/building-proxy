@@ -47,5 +47,17 @@ endpoints:
       enabled: true
 
 springdoc:
-    api-docs:
-      path: /api-docs
+  api-docs:
+    path: /api-docs
+
+app:
+  building:
+    kontakt-client:
+      base-url: $KONTAKT_API_URL
+      read-timeout: PT2S
+      connection-timeout: PT2S
+      retry:
+        first-backoff: PT0.5S
+        max-attempts: 5
+      api-key: $KONTAKT_API_KEY
+      page-size: 1

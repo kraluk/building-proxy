@@ -21,3 +21,10 @@ wiremock:
   server:
     files: classpath:/wiremock
     stubs: classpath:/wiremock/mappings
+
+app:
+  building:
+    kontakt-client:
+      base-url: http://localhost:${wiremock.server.port:-1}
+      api-key: 00000000-0000-0000-0000-000000000000
+      page-size: 1

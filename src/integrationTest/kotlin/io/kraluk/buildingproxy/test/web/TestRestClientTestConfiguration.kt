@@ -23,7 +23,7 @@ class TestRestClientTestConfiguration {
     val uriBuilderFactory = LocalHostUriBuilderFactory(environment)
 
     val httpClient = HttpClient.newBuilder()
-      .version(HttpClient.Version.HTTP_1_1) // as wiremock has issues with HTTP 2, we need to force HTTP 1.1
+      .version(HttpClient.Version.HTTP_1_1) // As wiremock has issues with HTTP 2, we need to force HTTP 1.1
       .followRedirects(HttpClient.Redirect.NEVER)
       .build()
 
@@ -40,7 +40,7 @@ class TestRestClientTestConfiguration {
   }
 }
 
-internal class LocalHostUriBuilderFactory(environment: Environment?) : DefaultUriBuilderFactory() {
+internal class LocalHostUriBuilderFactory(environment: Environment) : DefaultUriBuilderFactory() {
   private val delegate = LocalHostUriTemplateHandler(environment)
 
   override fun expand(uriTemplate: String, vararg uriVariables: Any): URI {

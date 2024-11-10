@@ -1,0 +1,58 @@
+{
+  "name": "Lab",
+  "address": "3, Stoczniowców, Podgórze, Krakow, 30-709, Poland",
+  "floors": [
+    {
+      "level": 0,
+      "xyGeoJsonImage": {
+        "type": "X_Y",
+        "data": {
+          "type": "Feature",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -0.4,
+                  18.2
+                ],
+                [
+                  14.9,
+                  18.2
+                ],
+                [
+                  14.9,
+                  -0.3
+                ],
+                [
+                  -0.4,
+                  -0.3
+                ],
+                [
+                  -0.4,
+                  18.2
+                ]
+              ]
+            ]
+          }
+        }
+      },
+      "latLongGeoJsonImage": null,
+      "properties": {
+        "gridWidth": 4,
+        "gridBounds": {
+          "boundsLat": {
+            "north": 22.2,
+            "south": -4.3
+          },
+          "boundsLng": {
+            "east": 23,
+            "west": -8.4
+          }
+        },
+        "gridDensity": 1,
+        "outlineCreated": true
+      }
+    }
+  ]
+}

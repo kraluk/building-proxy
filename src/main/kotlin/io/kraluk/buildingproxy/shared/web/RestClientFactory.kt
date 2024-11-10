@@ -26,21 +26,17 @@ object RestClientFactory {
     properties: BaseClientProperties,
     http2: Boolean = false,
   ): RestClient {
-    // New Java native Http Client uses connection pooling by default.
-    // By default, it creates as many connections as needed and keeps them alive for 20 minutes.
-    // If needed, we can configure it using system properties: https://www.baeldung.com/java-httpclient-connection-management
-    // ...with http2 support, it doesn't matter as in http2 we have only 1 TCP connection
+    // New Java native Http Client uses connection pooling by default. What's worth noticing, by default, it creates as many connections
+    // as needed and keeps them alive for 20 minutes.
+    // It can be configured by system properties: https://www.baeldung.com/java-httpclient-connection-management
     val httpClient = HttpClient
       .newBuilder()
       .connectTimeout(properties.connectionTimeout)
-      // Wiremock doesn't support http2: https://github.com/wiremock/wiremock/issues/2459
-      .version(if (http2) HTTP_2 else HTTP_1_1)
+      .version(if (http2) HTTP_2 else HTTP_1_1) // wiremock has some issues with http2: https://github.com/wiremock/wiremock/issues/2459
       .build()
 
     val requestFactory = JdkClientHttpRequestFactory(httpClient)
-      .also {
-        it.setReadTimeout(properties.readTimeout)
-      }
+      .also { it.setReadTimeout(properties.readTimeout) }
 
     val retryingInterceptor = RetryingClientHttpRequestInterceptor(properties.retry)
 
@@ -62,9 +58,8 @@ object RestClientFactory {
         interval = ofExponentialBackoff(retryProperties.firstBackoff),
         retryIfResult = { it.statusCode.is5xxServerError },
         retryIfException = {
-          // Do not check RestClientExceptions here (like HttpServerErrorException.BadGateway),
-          // because the interceptor checks the response code before RestClient maps it to
-          // the RestClientException.
+          // Do not check RestClientExceptions here (like HttpServerErrorException.BadGateway), because the interceptor checks the response
+          // code before RestClient maps it to the RestClientException.
           it is IOException
         },
       ),
@@ -88,11 +83,10 @@ object RestClientFactory {
       body: ByteArray,
       execution: ClientHttpRequestExecution,
     ): ClientHttpResponse =
-      // Executing http request may throw an IOException, which is a checked exception in Java.
-      // Normally, you'd see a compilation error, but in Kotlin, all exceptions are unchecked,
-      // so no errors are shown here.
-      // Do not use `executeSupplier` (unchecked) version here, because it would swallow
-      // all checked exceptions, and effectively would not retry them.
+      // Executing HTTP request may throw an IOException, which is a checked exception in Java. Normally, you'd see a compilation error,
+      // but in Kotlin, all exceptions are unchecked, so no errors are shown here.
+      // Do not use `executeSupplier` (unchecked) version here, because it would swallow all checked exceptions, and effectively would not
+      // retry them.
       retry.executeCheckedSupplier {
         execution.execute(request, body)
       }
@@ -103,21 +97,24 @@ object RestClientFactory {
       { _, response ->
         when {
           response.statusCode.is2xxSuccessful -> response
-          response.statusCode.is4xxClientError -> throw HttpClientErrorException.create(
-            response.statusCode,
-            response.statusText,
-            response.headers,
-            response.use { it.body.readBytes() },
-            UTF_8,
-          )
 
-          else -> throw HttpServerErrorException.create(
-            response.statusCode,
-            response.statusText,
-            response.headers,
-            response.use { it.body.readBytes() },
-            UTF_8,
-          )
+          response.statusCode.is4xxClientError ->
+            throw HttpClientErrorException.create(
+              response.statusCode,
+              response.statusText,
+              response.headers,
+              response.use { it.body.readBytes() },
+              UTF_8,
+            )
+
+          else ->
+            throw HttpServerErrorException.create(
+              response.statusCode,
+              response.statusText,
+              response.headers,
+              response.use { it.body.readBytes() },
+              UTF_8,
+            )
         }
       },
       false,
