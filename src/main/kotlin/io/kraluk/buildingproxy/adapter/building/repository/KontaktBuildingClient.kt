@@ -1,6 +1,10 @@
 package io.kraluk.buildingproxy.adapter.building.repository
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import io.kraluk.buildingproxy.domain.building.entity.Building
+import io.kraluk.buildingproxy.domain.building.entity.BuildingFloor
+import io.kraluk.buildingproxy.domain.building.entity.GeoJsonImage
+import io.kraluk.buildingproxy.domain.building.entity.GeoJsonImageType
 
 interface KontaktBuildingClient {
   fun findById(id: Long): KontaktBuildings
@@ -48,3 +52,20 @@ data class KontaktFloor(
   // it's quite generic as it's quite hard to design a proper model without knowing the actual data that is not provided in docs
   val properties: Map<String, Any>?,
 )
+
+fun KontaktBuilding.toDomain() =
+  Building(
+    id = id,
+    name = name,
+    address = address,
+    floors = floors.map { it.toDomain() },
+  )
+
+private fun KontaktFloor.toDomain() =
+  BuildingFloor(
+    id = id,
+    level = level,
+    xyGeoJsonImage = imageXyGeojson?.let { GeoJsonImage(type = GeoJsonImageType.X_Y, data = imageXyGeojson.toMap()) },
+    latLongGeoJsonImage = imageLatLngGeojson?.let { GeoJsonImage(type = GeoJsonImageType.LAT_LONG, data = imageLatLngGeojson.toMap()) },
+    properties = properties,
+  )

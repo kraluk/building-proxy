@@ -52,3 +52,6 @@ fun kontaktFloor(
     imageXyGeojson = imageXyGeojson,
     properties = properties,
   )
+
+fun kontaktGeojsonImage(): Map<String, Any> =
+  mapOf("type" to "Point", "coordinates" to listOf("0" to "0", "1" to "1"))
