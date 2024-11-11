@@ -2,16 +2,18 @@ package io.kraluk.buildingproxy.test.adapter.building.repository
 
 import io.kraluk.buildingproxy.domain.building.entity.Building
 import io.kraluk.buildingproxy.domain.building.repository.BuildingRepository
-import java.util.concurrent.CopyOnWriteArrayList
+import java.util.concurrent.ConcurrentHashMap
 
 class InMemoryBuildingRepository : BuildingRepository {
-  private val elements = CopyOnWriteArrayList<Building>()
+  private val elements = ConcurrentHashMap<Long, Building>()
 
   override fun findById(id: Long): Building? =
-    elements.find { it.id == id }
+    elements[id]
 
-  fun save(building: Building): Building =
-    building.also { elements.add(it) }
+  fun save(building: Building) {
+    elements.put(building.id, building)
+      .let { building }
+  }
 
-  fun elements(): List<Building> = elements.toList()
+  fun elements(): List<Building> = elements.values.toList()
 }
