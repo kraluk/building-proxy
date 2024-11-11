@@ -20,7 +20,7 @@ interface BuildingCacheRepository : BuildingRepository {
   fun save(building: Building)
 }
 
-@ConditionalOnMissingBean(BuildingCacheRepository::class)
+@ConditionalOnMissingBean(RedissonBuildingCacheRepository::class)
 @Component
 class NoOpBuildingCacheRepository : BuildingCacheRepository {
   override fun save(building: Building) {

@@ -1,9 +1,9 @@
 package io.kraluk.buildingproxy.adapter.building.repository
 
-import io.kraluk.buildingproxy.adapter.building.repository.InMemoryKontaktBuildingClient.Companion.EMPTY_LIST_ID
-import io.kraluk.buildingproxy.adapter.building.repository.InMemoryKontaktBuildingClient.Companion.FINDABLE_ID
-import io.kraluk.buildingproxy.adapter.building.repository.InMemoryKontaktBuildingClient.Companion.MORE_THAN_ONE_BUILDING_PER_ID
-import io.kraluk.buildingproxy.adapter.building.repository.InMemoryKontaktBuildingClient.Companion.NOT_FOUND_ID
+import io.kraluk.buildingproxy.adapter.building.repository.InMemoryKontaktClient.Companion.EMPTY_LIST_ID
+import io.kraluk.buildingproxy.adapter.building.repository.InMemoryKontaktClient.Companion.FINDABLE_ID
+import io.kraluk.buildingproxy.adapter.building.repository.InMemoryKontaktClient.Companion.MORE_THAN_ONE_BUILDING_PER_ID
+import io.kraluk.buildingproxy.adapter.building.repository.InMemoryKontaktClient.Companion.NOT_FOUND_ID
 import io.kraluk.buildingproxy.domain.building.entity.BuildingException
 import io.kraluk.buildingproxy.domain.building.entity.BuildingHasTooManyFloorsException
 import io.kraluk.buildingproxy.test.adapter.building.repository.kontaktBuilding
@@ -24,7 +24,7 @@ import java.nio.charset.StandardCharsets.UTF_8
 
 class WebBuildingRepositoryTest {
 
-  private val client = InMemoryKontaktBuildingClient()
+  private val client = InMemoryKontaktClient()
   private val repository = WebBuildingRepository(client)
 
   @Test
@@ -94,7 +94,7 @@ class WebBuildingRepositoryTest {
   }
 }
 
-private class InMemoryKontaktBuildingClient : KontaktBuildingClient {
+private class InMemoryKontaktClient : KontaktClient {
 
   override fun findById(id: Long): KontaktBuildings =
     when (id) {

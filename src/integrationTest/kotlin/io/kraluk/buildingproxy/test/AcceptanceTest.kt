@@ -64,7 +64,6 @@ abstract class AcceptanceTest : IntegrationTest() {
       ToxiproxyContainer("ghcr.io/shopify/toxiproxy:2.11.0")
         .withNetwork(redisContainer.network)
         .withReuse(true)
-        .also { it.setWaitStrategy(Wait.forListeningPort()) }
 
     @Suppress("unused")
     @JvmStatic

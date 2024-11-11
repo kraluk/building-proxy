@@ -16,12 +16,18 @@ import org.springframework.web.client.RestClient
 import org.springframework.web.util.UriBuilder
 import java.time.Duration
 
+/**
+ * Calls Location & Occupancy API to fetch building data
+ *
+ * @see [KontaktBuildings]
+ * @see <a href="https://developer.kontakt.io/docs/dev-ctr-loc-occ-api/c2466a130e6b4-list-all-buildings">api docs</a>
+ */
 @Component
-class RestKontaktBuildingClient(
-  @Qualifier("kontaktBuildingClient") private val client: RestClient,
+class RestKontaktClient(
+  @Qualifier("kontaktRestClient") private val client: RestClient,
   private val mapper: ObjectMapper,
-  private val properties: KontaktBuildingClientProperties,
-) : KontaktBuildingClient {
+  private val properties: KontaktClientProperties,
+) : KontaktClient {
   override fun findById(id: Long): KontaktBuildings =
     client
       .get()
@@ -46,7 +52,7 @@ class RestKontaktBuildingClient(
 }
 
 @ConfigurationProperties(prefix = "app.building.kontakt-client")
-data class KontaktBuildingClientProperties(
+data class KontaktClientProperties(
   val apiKey: String,
   val pageSize: Int = 1,
   override val baseUrl: String,
@@ -56,9 +62,9 @@ data class KontaktBuildingClientProperties(
 ) : BaseClientProperties
 
 @Configuration
-class RestKontaktBuildingClientConfiguration {
+class KontaktRestClientConfiguration {
 
   @Bean
-  fun kontaktBuildingClient(builder: RestClient.Builder, properties: KontaktBuildingClientProperties) =
+  fun kontaktRestClient(builder: RestClient.Builder, properties: KontaktClientProperties) =
     RestClientFactory.create(builder = builder, properties = properties, http2 = false)
 }

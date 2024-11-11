@@ -13,7 +13,7 @@ import org.springframework.web.client.HttpServerErrorException
 
 @Component
 class WebBuildingRepository(
-  private val client: KontaktBuildingClient,
+  private val client: KontaktClient,
 ) : BuildingRepository {
 
   @Timed("building_fetch_web")

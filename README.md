@@ -1,6 +1,8 @@
 # building-proxy
 
-`building-proxy` is a simple proxy `kontakt.io`'s REST API to fetch the buildings data and caches it in Redis.
+`building-proxy` is a simple proxy `kontakt.io`'s
+[Location & Occupancy API](https://developer.kontakt.io/docs/dev-ctr-loc-occ-api/c6bcb378b0df8-location-and-occupancy) to fetch the
+buildings data and caches it in Redis.
 
 The application is written in Java 21 using Gradle 8 and Spring Boot 3 with enabled Virtual Threads support.
 
@@ -38,6 +40,9 @@ Some kind of variation of the Clean Architecture has been used in the project to
   * potentially [reusable containers](https://java.testcontainers.org/features/reuse/) can be used as well but only
     for the local development
 * prepare performance tests to check how the application behaves under the load using, using for example, `gatling`
+* consider mapping GeoJsons to a proper data structure to make it easier to work with them, not just passing them through
+  * for example using `jackson`'s [postgis-geojson](https://github.com/GeosatCO/postgis-geojson)
+    or [geojson-jackson](https://github.com/opendatalab-de/geojson-jackson) extensions would be good enough
 
 ## Way of working
 

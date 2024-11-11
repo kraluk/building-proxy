@@ -6,7 +6,7 @@ import io.kraluk.buildingproxy.domain.building.entity.BuildingFloor
 import io.kraluk.buildingproxy.domain.building.entity.GeoJsonImage
 import io.kraluk.buildingproxy.domain.building.entity.GeoJsonImageType
 
-interface KontaktBuildingClient {
+interface KontaktClient {
   fun findById(id: Long): KontaktBuildings
 }
 

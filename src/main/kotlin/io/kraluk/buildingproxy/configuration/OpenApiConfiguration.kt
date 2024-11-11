@@ -14,7 +14,7 @@ class OpenApiConfiguration {
       .info(
         Info()
           .title("Building Proxy API")
-          .description("Proxies and caches calls to Building API")
+          .description("Proxies and caches calls to the Location & Occupancy API regarding buildings")
           .version("v1"),
       )
 }

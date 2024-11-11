@@ -60,7 +60,7 @@ springdoc:
 app:
   building:
     kontakt-client:
-      base-url: $KONTAKT_API_URL
+      base-url: $KONTAKT_API_URL # https://stoplight.io/mocks/kontakt-api-docs/dev-ctr-loc-occ-api/29456682
       read-timeout: PT2S
       connection-timeout: PT2S
       retry:
