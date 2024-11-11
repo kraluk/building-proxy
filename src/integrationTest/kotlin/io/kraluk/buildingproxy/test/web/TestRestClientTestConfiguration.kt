@@ -43,17 +43,14 @@ class TestRestClientTestConfiguration {
 internal class LocalHostUriBuilderFactory(environment: Environment) : DefaultUriBuilderFactory() {
   private val delegate = LocalHostUriTemplateHandler(environment)
 
-  override fun expand(uriTemplate: String, vararg uriVariables: Any): URI {
-    return delegate.expand(uriTemplate, *uriVariables)
-  }
+  override fun expand(uriTemplate: String, vararg uriVariables: Any): URI =
+    delegate.expand(uriTemplate, *uriVariables)
 
-  override fun uriString(uriTemplate: String): UriBuilder {
-    return DefaultUriBuilderFactory(delegate.rootUri).uriString(uriTemplate)
-  }
+  override fun uriString(uriTemplate: String): UriBuilder =
+    DefaultUriBuilderFactory(delegate.rootUri).uriString(uriTemplate)
 
-  override fun builder(): UriBuilder {
-    return DefaultUriBuilderFactory(delegate.rootUri).uriString("")
-  }
+  override fun builder(): UriBuilder =
+    DefaultUriBuilderFactory(delegate.rootUri).uriString("")
 }
 
 internal class NoOpErrorStatusHandler : DefaultResponseErrorHandler() {

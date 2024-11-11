@@ -20,8 +20,8 @@ class KontaktBuildingTest {
     val kontakt: KontaktBuilding = kontaktBuilding(
       floors = listOf(
         kontaktFloor(level = 1, imageXyGeojson = kontaktGeojsonImage(), imageLatLngGeojson = null),
-        kontaktFloor(level = 2, imageXyGeojson = null, imageLatLngGeojson = kontaktGeojsonImage())
-      )
+        kontaktFloor(level = 2, imageXyGeojson = null, imageLatLngGeojson = kontaktGeojsonImage()),
+      ),
     )
 
     // When
@@ -39,7 +39,7 @@ class KontaktBuildingTest {
     domain.floors[0].level `should be equal to` kontakt.floors[0].level
     domain.floors[0].xyGeoJsonImage.`should not be null`() `should be equal to` GeoJsonImage(
       type = GeoJsonImageType.X_Y,
-      data = kontakt.floors[0].imageXyGeojson.`should not be null`()
+      data = kontakt.floors[0].imageXyGeojson.`should not be null`(),
     )
     domain.floors[0].latLongGeoJsonImage.`should be null`()
     domain.floors[0].properties `should be equal to` kontakt.floors[0].properties
@@ -50,7 +50,7 @@ class KontaktBuildingTest {
     domain.floors[1].xyGeoJsonImage.`should be null`()
     domain.floors[1].latLongGeoJsonImage.`should not be null`() `should be equal to` GeoJsonImage(
       type = GeoJsonImageType.LAT_LONG,
-      data = kontakt.floors[1].imageLatLngGeojson.`should not be null`()
+      data = kontakt.floors[1].imageLatLngGeojson.`should not be null`(),
     )
     domain.floors[1].properties `should be equal to` kontakt.floors[1].properties
   }

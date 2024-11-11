@@ -49,13 +49,13 @@ object RestClientFactory {
     return restClient
   }
 
-  class RetryingClientHttpRequestInterceptor(retryProperties: BaseClientProperties.RetryProperties) : ClientHttpRequestInterceptor {
+  class RetryingClientHttpRequestInterceptor(properties: BaseClientProperties.RetryProperties) : ClientHttpRequestInterceptor {
 
     private val retry: Retry = Retry.of(
       "interceptor-http-retry",
-      retryConfig(
-        maxAttempts = retryProperties.maxAttempts,
-        interval = ofExponentialBackoff(retryProperties.firstBackoff),
+      retryConfiguration(
+        maxAttempts = properties.maxAttempts,
+        interval = ofExponentialBackoff(properties.firstBackoff),
         retryIfResult = { it.statusCode.is5xxServerError },
         retryIfException = {
           // Do not check RestClientExceptions here (like HttpServerErrorException.BadGateway), because the interceptor checks the response
@@ -65,7 +65,7 @@ object RestClientFactory {
       ),
     )
 
-    private fun retryConfig(
+    private fun retryConfiguration(
       maxAttempts: Int,
       interval: IntervalFunction,
       retryIfResult: (ClientHttpResponse) -> Boolean,
