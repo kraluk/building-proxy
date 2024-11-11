@@ -8,6 +8,13 @@ The application is written in Java 21 using Gradle 8 and Spring Boot 3 with enab
 
 Some kind of variation of the Clean Architecture has been used in the project to organise the code.
 
+## Disclaimer
+
+As it's quite not-so-easy to perform load tests (and meet requirements on a requests-per-second metric that the application should handle)
+without having the access to the upstream API, a decision has been made to cache the data in Redis. Sure, Redis can be a bit overengineered
+option for such a case - perhaps a `memcached` or even a simple in-memory cache would be enough (but for the last option each instance of
+the application would have a separate cache what potentially can increase the traffic to the upstream API, but maybe it's not an issue).
+
 ## Architecture diagram
 
 ![Architecture Diagram](docs/diagrams/architecture.drawio.png)
