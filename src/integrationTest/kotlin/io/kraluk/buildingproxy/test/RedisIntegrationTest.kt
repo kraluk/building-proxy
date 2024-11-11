@@ -29,4 +29,5 @@ class RedisTestConfiguration {
   fun redisContainer(): GenericContainer<*> =
     GenericContainer("redis:7.4-alpine")
       .withExposedPorts(6379)
+      .withReuse(true)
 }

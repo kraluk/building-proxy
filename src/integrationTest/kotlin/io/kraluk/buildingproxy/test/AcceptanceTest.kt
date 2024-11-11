@@ -55,6 +55,7 @@ abstract class AcceptanceTest : IntegrationTest() {
         .withExposedPorts(REDIS_PORT)
         .withNetwork(Network.newNetwork())
         .withNetworkAliases("redis")
+        .withReuse(true)
         .also { it.setWaitStrategy(Wait.forListeningPort()) }
 
     @JvmStatic
@@ -62,6 +63,7 @@ abstract class AcceptanceTest : IntegrationTest() {
     private val toxiProxyContainer: ToxiproxyContainer =
       ToxiproxyContainer("ghcr.io/shopify/toxiproxy:2.11.0")
         .withNetwork(redisContainer.network)
+        .withReuse(true)
         .also { it.setWaitStrategy(Wait.forListeningPort()) }
 
     @Suppress("unused")
