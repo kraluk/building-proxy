@@ -3,13 +3,13 @@ package io.kraluk.buildingproxy.adapter.building.repository
 import io.kraluk.buildingproxy.domain.building.entity.Building
 import io.kraluk.buildingproxy.domain.building.repository.BuildingRepository
 import io.kraluk.buildingproxy.shared.logger
+import io.micrometer.core.annotation.Timed
 import org.redisson.api.RedissonClient
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.context.annotation.Bean
 import org.springframework.scheduling.annotation.Async
+import org.springframework.stereotype.Component
 import java.time.Clock
 import java.time.Duration
 import java.time.Instant
@@ -20,6 +20,8 @@ interface BuildingCacheRepository : BuildingRepository {
   fun save(building: Building)
 }
 
+@ConditionalOnMissingBean(BuildingCacheRepository::class)
+@Component
 class NoOpBuildingCacheRepository : BuildingCacheRepository {
   override fun save(building: Building) {
     // Do nothing
@@ -30,6 +32,8 @@ class NoOpBuildingCacheRepository : BuildingCacheRepository {
   }
 }
 
+@ConditionalOnExpression("#{\${app.building.cache.enabled:false} and \${spring.data.redis.enabled:false}}")
+@Component
 class RedissonBuildingCacheRepository(
   private val client: RedissonClient,
   private val clock: Clock,
@@ -46,6 +50,7 @@ class RedissonBuildingCacheRepository(
       .also { log.debug("Saved '1' element under the key '{}'", indexKey(building.id)) }
   }
 
+  @Timed("building_fetch_cache")
   override fun findById(id: Long): Building? =
     client.getBucket<Building>(indexKey(id))
       .let { if (it.size() > 1L) it.get() else null }
@@ -63,26 +68,3 @@ class RedissonBuildingCacheRepository(
 
 @ConfigurationProperties(prefix = "app.building.cache")
 data class BuildingCacheProperties(val timeToLive: Duration = 10.minutes.toJavaDuration())
-
-@ConfigurationProperties
-class BuildingCacheRepositoryConfiguration {
-
-  @ConditionalOnProperty(
-    prefix = "app.building.cache",
-    name = ["enabled"],
-    havingValue = "true",
-  )
-  @ConditionalOnExpression("#{\${app.building.cache.enabled:false} and \${spring.data.redis.enabled:false}}")
-  @Bean
-  fun redissonBuildingCacheRepository(
-    client: RedissonClient,
-    clock: Clock,
-    properties: BuildingCacheProperties,
-  ): BuildingCacheRepository =
-    RedissonBuildingCacheRepository(client, clock, properties)
-
-  @ConditionalOnMissingBean(BuildingCacheRepository::class)
-  @Bean
-  fun noOpBuildingCacheRepository(): BuildingCacheRepository =
-    NoOpBuildingCacheRepository()
-}

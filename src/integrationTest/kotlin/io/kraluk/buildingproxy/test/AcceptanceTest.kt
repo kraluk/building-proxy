@@ -4,7 +4,9 @@ import eu.rekawek.toxiproxy.Proxy
 import eu.rekawek.toxiproxy.ToxiproxyClient
 import eu.rekawek.toxiproxy.model.ToxicDirection
 import io.kraluk.buildingproxy.test.extension.ClearCacheExtension
+import io.micrometer.core.instrument.MeterRegistry
 import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.GenericContainer
@@ -20,6 +22,9 @@ import org.testcontainers.junit.jupiter.Testcontainers
 @Testcontainers
 @ExtendWith(ClearCacheExtension::class)
 abstract class AcceptanceTest : IntegrationTest() {
+
+  @Autowired
+  protected lateinit var meterRegistry: MeterRegistry
 
   protected fun startRedisMalfunction() {
     redisProxy.toxics().bandwidth("CUT_CONNECTION_DOWNSTREAM", ToxicDirection.DOWNSTREAM, 0)

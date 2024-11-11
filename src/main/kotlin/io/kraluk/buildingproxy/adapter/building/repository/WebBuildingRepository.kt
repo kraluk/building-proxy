@@ -5,6 +5,7 @@ import io.kraluk.buildingproxy.domain.building.entity.BuildingException
 import io.kraluk.buildingproxy.domain.building.entity.BuildingHasTooManyFloorsException
 import io.kraluk.buildingproxy.domain.building.repository.BuildingRepository
 import io.kraluk.buildingproxy.shared.logger
+import io.micrometer.core.annotation.Timed
 import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Component
 import org.springframework.web.client.HttpClientErrorException
@@ -14,6 +15,8 @@ import org.springframework.web.client.HttpServerErrorException
 class WebBuildingRepository(
   private val client: KontaktBuildingClient,
 ) : BuildingRepository {
+
+  @Timed("building_fetch_web")
   override fun findById(id: Long): Building? =
     try {
       queryBuildingById(id)

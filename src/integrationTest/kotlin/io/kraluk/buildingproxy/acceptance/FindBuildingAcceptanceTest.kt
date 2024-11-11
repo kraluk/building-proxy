@@ -3,8 +3,10 @@ package io.kraluk.buildingproxy.acceptance
 import io.kraluk.buildingproxy.adapter.building.web.BuildingsWebTestClient
 import io.kraluk.buildingproxy.test.AcceptanceTest
 import io.kraluk.buildingproxy.test.contentOf
+import io.kraluk.buildingproxy.test.shared.getTimerValue
 import io.kraluk.buildingproxy.test.web.expectContentType
 import io.kraluk.buildingproxy.test.web.expectStatusCodeOk
+import org.amshove.kluent.`should be greater than`
 import org.amshove.kluent.`should not be null`
 import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
@@ -38,6 +40,11 @@ class FindBuildingAcceptanceTest : AcceptanceTest() {
 
     JSONAssert.assertEquals(expected, actual1, JSONCompareMode.STRICT)
     JSONAssert.assertEquals(expected, actual2, JSONCompareMode.STRICT)
+
+    // And then check that metrics are present
+    meterRegistry.getTimerValue("usecase_building_find_by_id") `should be greater than` 0.0
+    meterRegistry.getTimerValue("building_fetch_cache") `should be greater than` 0.0
+    meterRegistry.getTimerValue("building_fetch_web") `should be greater than` 0.0
   }
 
   @Test
