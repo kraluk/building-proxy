@@ -90,7 +90,7 @@ class WebBuildingRepositoryTest {
     } `should throw` BuildingException::class
 
     // And then
-    e.exceptionMessage `should contain` "Error while fetching building with id '$id'"
+    e.exceptionMessage `should contain` "Upstream server error while fetching building with id '$id'"
   }
 }
 

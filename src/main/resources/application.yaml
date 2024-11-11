@@ -8,6 +8,13 @@ spring:
   mvc:
     problemdetails:
       enabled: true
+  data:
+    redis:
+      enabled: true
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: PT0.5S
+      connectTimeout: PT1S
 
 server:
   port: 8080
@@ -61,3 +68,6 @@ app:
         max-attempts: 5
       api-key: $KONTAKT_API_KEY
       page-size: 1
+    cache:
+      enabled: true
+      time-to-live: PT2H

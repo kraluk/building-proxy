@@ -21,6 +21,7 @@ dependencyResolutionManagement {
 
           version("springDoc", "2.6.0")
           version("resilience4j", "2.2.0")
+          version("redisson", "3.38.1")
         }
         create("testLibs") {
           version("awaitility", "4.2.2")

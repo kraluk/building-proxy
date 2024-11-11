@@ -28,6 +28,7 @@ enum class GeoJsonImageType {
   X_Y,
 }
 
-class BuildingException(override val message: String, override val cause: Throwable? = null) : RuntimeException(message, cause)
+class BuildingException(override val message: String, val buildingId: Long? = null, override val cause: Throwable? = null) :
+  RuntimeException(message, cause)
 
 class BuildingHasTooManyFloorsException(override val message: String) : RuntimeException(message)

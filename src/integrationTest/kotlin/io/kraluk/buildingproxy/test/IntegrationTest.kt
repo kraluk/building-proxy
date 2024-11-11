@@ -1,5 +1,6 @@
 package io.kraluk.buildingproxy.test
 
+import com.github.tomakehurst.wiremock.WireMockServer
 import io.kraluk.buildingproxy.test.web.TestRestClientTestConfiguration
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
@@ -20,4 +21,7 @@ abstract class IntegrationTest {
   @Qualifier("testRestClient")
   @Autowired
   protected lateinit var testRestClient: RestClient
+
+  @Autowired
+  protected lateinit var wireMock: WireMockServer
 }

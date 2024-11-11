@@ -49,6 +49,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("org.springframework.boot:spring-boot-starter-logging")
   implementation("org.springframework.boot:spring-boot-starter-aop")
+  implementation("org.redisson:redisson-spring-boot-starter:${libs.versions.redisson.get()}")
 
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
@@ -70,6 +71,9 @@ dependencies {
   testImplementation("org.awaitility:awaitility-kotlin:${testLibs.versions.awaitility.get()}")
   testImplementation("org.skyscreamer:jsonassert:${testLibs.versions.jsonassert.get()}")
 
+  integrationTestImplementation("org.springframework.boot:spring-boot-testcontainers")
+  integrationTestImplementation("org.testcontainers:junit-jupiter")
+  integrationTestImplementation("org.testcontainers:toxiproxy")
   integrationTestImplementation(
     "org.springframework.cloud:spring-cloud-contract-wiremock:${testLibs.versions.springCloudContractWiremock.get()}",
   )

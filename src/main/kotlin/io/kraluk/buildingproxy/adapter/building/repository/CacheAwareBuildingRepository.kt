@@ -3,9 +3,14 @@ package io.kraluk.buildingproxy.adapter.building.repository
 import io.kraluk.buildingproxy.domain.building.entity.Building
 import io.kraluk.buildingproxy.domain.building.repository.BuildingRepository
 import io.kraluk.buildingproxy.shared.logger
+import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.context.annotation.Primary
+import org.springframework.stereotype.Component
 
+@Primary
+@Component
 class CacheAwareBuildingRepository(
-  private val repository: BuildingRepository,
+  @Qualifier("webBuildingRepository") private val repository: BuildingRepository,
   private val cacheRepository: BuildingCacheRepository,
 ) : BuildingRepository {
 
@@ -16,6 +21,7 @@ class CacheAwareBuildingRepository(
   private fun findInCache(id: Long): Building? =
     try {
       cacheRepository.findById(id)
+        .also { if (it != null) log.debug("Building '{}' found in cache!", id) }
     } catch (e: Exception) {
       log.error("Unable to get Building '{}' from cache!", id, e)
       null
@@ -26,6 +32,7 @@ class CacheAwareBuildingRepository(
       ?.also {
         try {
           cacheRepository.save(it)
+            .also { log.debug("Building '{}' saved in cache!", id) }
         } catch (e: Exception) {
           log.error("Unable to save Building '{}' in cache!", id, e)
         }
