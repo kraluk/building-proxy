@@ -11,7 +11,7 @@ dependencyResolutionManagement {
           plugin("kotlin.jvm", "org.jetbrains.kotlin.jvm").version("2.0.21")
           plugin("kotlin.spring", "org.jetbrains.kotlin.plugin.spring").version("2.0.21")
 
-          plugin("spring.boot", "org.springframework.boot").version("3.3.4")
+          plugin("spring.boot", "org.springframework.boot").version("3.3.5")
           plugin("spring.dependencyManagement", "io.spring.dependency-management").version("1.1.6")
 
           plugin("ktlint", "org.jlleitschuh.gradle.ktlint").version("12.1.1")
