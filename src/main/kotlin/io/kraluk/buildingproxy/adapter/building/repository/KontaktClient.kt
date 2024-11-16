@@ -20,7 +20,7 @@ interface KontaktClient {
  * - have some meaningful value
  *
  * Assumptions for collections:
- * - if there are no elements in a list, it's an empty list returned, not `null`
+ * - if there are no elements in a list, an empty list is returned, not `null`
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class KontaktBuildings(

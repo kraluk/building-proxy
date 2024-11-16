@@ -27,7 +27,7 @@ the application would have a separate cache what potentially can increase the tr
 
 ## Missing parts to be production-ready
 
-* pipeline for building application Docker image based on the prepared `Dockerfile` and storing it some kind of registry
+* pipeline for building application Docker image based on the prepared `Dockerfile` and storing it in some kind of registry
   * for example, Docker Hub, GitHub Container Registry, etc.
 * pipeline for deploying the application to given environments in a proper deployment place
   * for example, deploying to Kubernetes cluster needs a proper deployment descriptor or a Helm chart
