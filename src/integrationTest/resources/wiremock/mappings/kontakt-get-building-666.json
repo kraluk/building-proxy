@@ -1,0 +1,14 @@
+{
+  "request": {
+    "url": "/v2/locations/buildings?buildingId=666&size=1",
+    "method": "GET"
+  },
+  "response": {
+    "status": 404,
+    "bodyFileName": "kontakt/get-building-666.json",
+    "headers": {
+      "Content-Type": "application/json",
+      "Api-Version": "00000000-0000-0000-0000-000000000000"
+    }
+  }
+}

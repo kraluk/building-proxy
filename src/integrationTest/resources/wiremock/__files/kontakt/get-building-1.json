@@ -1,0 +1,113 @@
+{
+  "links": [
+    {
+      "rel": "self",
+      "href": "http://apps.cloud.us.kontakt.io/v2/locations?page=0&size=20"
+    }
+  ],
+  "content": [
+    {
+      "id": 1,
+      "name": "Lab",
+      "address": "3, Stoczniowców, Podgórze, Krakow, 30-709, Poland",
+      "description": "Krakow Lab",
+      "floors": [
+        {
+          "id": 94215,
+          "name": "Lab_floor_prod1",
+          "height": 17.8,
+          "width": 14.6,
+          "properties": {
+            "gridWidth": 4,
+            "gridBounds": {
+              "boundsLat": {
+                "north": 22.2,
+                "south": -4.3
+              },
+              "boundsLng": {
+                "east": 23,
+                "west": -8.4
+              }
+            },
+            "gridDensity": 1,
+            "outlineCreated": true
+          },
+          "level": 0,
+          "xyGeojson": {
+            "type": "Feature",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    0,
+                    17.8
+                  ],
+                  [
+                    14.6,
+                    17.8
+                  ],
+                  [
+                    14.6,
+                    0
+                  ],
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    17.8
+                  ]
+                ]
+              ]
+            },
+            "properties": {}
+          },
+          "imageXyGeojson": {
+            "type": "Feature",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    -0.4,
+                    18.2
+                  ],
+                  [
+                    14.9,
+                    18.2
+                  ],
+                  [
+                    14.9,
+                    -0.3
+                  ],
+                  [
+                    -0.4,
+                    -0.3
+                  ],
+                  [
+                    -0.4,
+                    18.2
+                  ]
+                ]
+              ]
+            }
+          }
+        }
+      ],
+      "campus": {
+        "id": 93915,
+        "name": "K.io_Lab_fixed"
+      },
+      "lat": 50.050278,
+      "lng": 19.9820425
+    }
+  ],
+  "page": {
+    "size": 20,
+    "totalElements": 1,
+    "totalPages": 1,
+    "number": 0
+  }
+}

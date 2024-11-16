@@ -1,0 +1,40 @@
+spring:
+  application.name: building-proxy-tests
+  data:
+    redis:
+      enabled: false
+      timeout: PT0.03S
+      connectTimeout: PT0.1S
+
+management:
+  metrics:
+    enable:
+      tomcat: false
+      jvm: false
+      process: false
+      hikaricp: false
+      system: false
+      jdbc: false
+      http: false
+      logback: false
+
+logging:
+  level:
+    io.kraluk.buildingproxy: DEBUG
+
+wiremock:
+  server:
+    files: classpath:/wiremock
+    stubs: classpath:/wiremock/mappings
+
+app:
+  building:
+    kontakt-client:
+      base-url: http://localhost:${wiremock.server.port:-1}
+      api-key: 00000000-0000-0000-0000-000000000000
+      page-size: 1
+      retry:
+        first-backoff: PT0.1S
+        max-attempts: 3
+    cache:
+      enabled: false

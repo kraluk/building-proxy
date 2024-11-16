@@ -1,0 +1,73 @@
+spring:
+  application.name: building-proxy
+  main:
+    web-application-type: servlet
+  profiles.active: ${ENVIRONMENT:local}
+  threads:
+    virtual.enabled: true
+  mvc:
+    problemdetails:
+      enabled: true
+  data:
+    redis:
+      enabled: true
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: PT0.5S
+      connectTimeout: PT1S
+
+server:
+  port: 8080
+  shutdown: graceful
+
+logging:
+  level:
+    io.kraluk.buildingproxy: INFO
+
+management:
+endpoints:
+  web:
+    exposure:
+      include: health, info, prometheus, openapi, swagger-ui
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+      environment: ${spring.profiles.active}
+    distribution:
+      percentiles:
+        http:
+          server:
+            requests: [ 0.99, 0.95, 0.75, 0.50 ]
+          client:
+            requests: [ 0.99, 0.95, 0.75, 0.50 ]
+  observations:
+    annotations:
+      enabled: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+
+app:
+  building:
+    kontakt-client:
+      base-url: $KONTAKT_API_URL # https://stoplight.io/mocks/kontakt-api-docs/dev-ctr-loc-occ-api/29456682
+      read-timeout: PT2S
+      connection-timeout: PT2S
+      retry:
+        first-backoff: PT0.5S
+        max-attempts: 5
+      api-key: $KONTAKT_API_KEY
+      page-size: 1
+    cache:
+      enabled: true
+      time-to-live: PT2H
