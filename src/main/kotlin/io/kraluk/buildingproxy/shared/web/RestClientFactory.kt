@@ -118,7 +118,7 @@ object RestClientFactory {
         }
       },
       false,
-    )
+    ) ?: throw IllegalStateException("Unable to process given response as it is null!")
 }
 
 interface BaseClientProperties {
