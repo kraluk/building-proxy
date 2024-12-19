@@ -8,7 +8,9 @@ import org.springframework.web.client.RestClient
 import org.springframework.web.client.toEntity
 
 internal inline fun <reified T : Any> RestClient.RequestHeadersSpec<*>.retrieveAsEntity(): ResponseEntity<T> =
-  retrieve().toEntity<T>()
+  retrieve()
+    .onErrorProceed()
+    .toEntity<T>()
 
 internal inline fun <reified T> ResponseEntity<T>.expectStatusCode(status: HttpStatus): ResponseEntity<T> {
   statusCode.value() `should be equal to` status.value()
@@ -25,3 +27,6 @@ internal inline fun <reified T> ResponseEntity<T>.expectHeader(header: String, v
   headers.getOrEmpty(header).first() `should be equal to` value
   return this
 }
+
+private fun RestClient.ResponseSpec.onErrorProceed(): RestClient.ResponseSpec =
+  onStatus({ it.isError }, { _, _ -> }) // avoid throwing exceptions on error status codes
