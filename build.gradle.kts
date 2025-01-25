@@ -24,6 +24,8 @@ val integrationTestImplementation: Configuration = configurations.create("integr
 val integrationTestRuntimeOnly: Configuration = configurations.create("integrationTestRuntimeOnly")
   .extendsFrom(configurations.testRuntimeOnly.get())
 
+val mockitoAgent = configurations.create("mockitoAgent")
+
 java {
   toolchain {
     languageVersion = JavaLanguageVersion.of(jvm.versions.java.get().toInt())
@@ -66,6 +68,7 @@ dependencies {
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.amshove.kluent:kluent:${testLibs.versions.kluent.get()}")
+  testImplementation("org.mockito:mockito-core:${dependencyManagement.importedProperties["mockito.version"]}")
   testImplementation("org.mockito.kotlin:mockito-kotlin:${testLibs.versions.mockitoKotlin.get()}")
   testImplementation("org.awaitility:awaitility:${testLibs.versions.awaitility.get()}")
   testImplementation("org.awaitility:awaitility-kotlin:${testLibs.versions.awaitility.get()}")
@@ -77,12 +80,14 @@ dependencies {
   integrationTestImplementation(
     "org.springframework.cloud:spring-cloud-contract-wiremock:${testLibs.versions.springCloudContractWiremock.get()}",
   )
+
+  mockitoAgent("org.mockito:mockito-core:${dependencyManagement.importedProperties["mockito.version"]}") { isTransitive = false }
 }
 
 tasks.test {
   useJUnitPlatform()
   defaultCharacterEncoding = "UTF-8"
-  jvmArgs("-XX:+EnableDynamicAgentLoading")
+  jvmArgs("-XX:+EnableDynamicAgentLoading", "-javaagent:${mockitoAgent.asPath}")
 
   testLogging {
     showStandardStreams = true
@@ -109,7 +114,7 @@ val integrationTest = tasks.register<Test>("integrationTest") {
   defaultCharacterEncoding = "UTF-8"
 
   useJUnitPlatform()
-  jvmArgs("-XX:+EnableDynamicAgentLoading")
+  jvmArgs("-XX:+EnableDynamicAgentLoading", "-javaagent:${mockitoAgent.asPath}")
 
   testLogging {
     showStandardStreams = true
