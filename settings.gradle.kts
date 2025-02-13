@@ -19,9 +19,9 @@ dependencyResolutionManagement {
 
           plugin("versions", "com.github.ben-manes.versions").version("0.52.0")
 
-          version("springDoc", "2.8.3")
+          version("springDoc", "2.8.4")
           version("resilience4j", "2.3.0")
-          version("redisson", "3.43.0")
+          version("redisson", "3.44.0")
         }
         create("testLibs") {
           version("awaitility", "4.2.2")
