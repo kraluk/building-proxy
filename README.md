@@ -55,7 +55,7 @@ the application would have a separate cache what potentially can increase the tr
 
 * run all tests with `./gradlew check`
 * run unit tests with `./gradlew test`
-* run integration and acceptance tests with `./gradlew integrationTest`
+* run integration and acceptance tests with `./gradlew testIntegration`
 * check dependencies with `./gradlew dependencyUpdates`
 * reformat code base `./gradlew ktlintFormat`
 * perform static analysis `./gradlew detekt`
