@@ -1,6 +1,6 @@
 services:
   wiremock:
-    image: wiremock/wiremock:3.12.1
+    image: wiremock/wiremock:3.13.0-alpine
     ports:
       - '8088:8080'
     volumes:
@@ -8,6 +8,6 @@ services:
       - ./src/integrationTest/resources/wiremock/mappings:/home/wiremock/mappings
 
   redis:
-    image: redis:7.4-alpine
+    image: redis:8.0.1-alpine
     ports:
       - '6379:6379'
