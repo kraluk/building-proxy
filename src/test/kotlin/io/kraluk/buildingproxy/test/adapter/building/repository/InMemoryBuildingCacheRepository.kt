@@ -29,8 +29,6 @@ class InMemoryBuildingCacheRepository : BuildingCacheRepository {
     const val THROWING_FIND_ID = 666L
     const val THROWING_SAVE_ID = 999L
 
-    private fun throwCacheException(): Building {
-      throw IllegalStateException("CACHE ERROR")
-    }
+    private fun throwCacheException(): Building = throw IllegalStateException("CACHE ERROR")
   }
 }

@@ -14,3 +14,10 @@ ij_continuation_indent_size = 4
 ij_java_names_count_to_use_import_on_demand = 9999
 ij_kotlin_name_count_to_use_star_import = 9999
 ij_kotlin_name_count_to_use_star_import_for_members = 9999
+
+# ktlint custom configuration
+ktlint_standard_no-empty-first-line-in-class-body = disabled
+ktlint_standard_multiline-expression-wrapping = disabled
+ktlint_standard_chain-method-continuation = disabled
+ktlint_standard_function-signature = disabled
+ktlint_standard_class-signature = disabled

@@ -20,7 +20,8 @@ class WebBuildingRepository(
   override fun findById(id: Long): Building? =
     try {
       queryBuildingById(id)
-    } catch (e: HttpClientErrorException) { // perhaps this should be handled in a more not-so-generic way
+    } catch (e: HttpClientErrorException) {
+      // perhaps this should be handled in a more not-so-generic way
       if (e.statusCode.isNotFound()) {
         log.warn("Building with id '{}' not found", id)
         null

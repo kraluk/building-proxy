@@ -53,7 +53,9 @@ class BuildingsController(
     ],
   )
   @GetMapping(value = ["/v1/buildings/{id}"], produces = [APPLICATION_JSON_VALUE])
-  fun findById(@Parameter(description = "Id of the Building", example = "34567") @PathVariable("id") id: Long): ResponseEntity<out Any> =
+  fun findById(
+    @Parameter(description = "Id of the Building", example = "34567") @PathVariable("id") id: Long,
+  ): ResponseEntity<out Any> =
     findByIsUseCase.invoke(FindBuildingByIdUseCase.Command(id))
       ?.toHttp()
       ?.let { ResponseEntity.ok(it) }

@@ -14,7 +14,7 @@ dependencyResolutionManagement {
           plugin("spring.boot", "org.springframework.boot").version("3.4.6")
           plugin("spring.dependencyManagement", "io.spring.dependency-management").version("1.1.7")
 
-          plugin("ktlint", "org.jlleitschuh.gradle.ktlint").version("12.3.0")
+          plugin("ktlint", "org.jlleitschuh.gradle.ktlint").version("13.0.0-rc.1")
           plugin("detekt", "io.gitlab.arturbosch.detekt").version("1.23.8")
 
           plugin("versions", "com.github.ben-manes.versions").version("0.52.0")
@@ -31,7 +31,7 @@ dependencyResolutionManagement {
           version("springCloudContractWiremock", "4.2.1")
         }
         create("toolLibs") {
-          version("ktlint", "0.50.0")
+          version("ktlint", "1.6.0")
         }
       }
     }

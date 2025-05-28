@@ -165,7 +165,8 @@ detekt {
   config.setFrom("$projectDir/detekt.yml")
 }
 
-project.afterEvaluate { // https://detekt.dev/docs/gettingstarted/gradle/#dependencies
+project.afterEvaluate {
+  // https://detekt.dev/docs/gettingstarted/gradle/#dependencies
   configurations["detekt"].resolutionStrategy.eachDependency {
     if (requested.group == "org.jetbrains.kotlin") {
       useVersion(io.gitlab.arturbosch.detekt.getSupportedKotlinVersion())

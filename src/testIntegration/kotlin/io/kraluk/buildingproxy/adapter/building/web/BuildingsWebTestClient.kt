@@ -8,8 +8,8 @@ import org.springframework.web.util.UriBuilder
 
 internal class BuildingsWebTestClient(private val client: RestClient) {
 
-  internal inline fun <reified R : Any> getById(id: Long): ResponseEntity<R> {
-    return client
+  internal inline fun <reified R : Any> getById(id: Long): ResponseEntity<R> =
+    client
       .get()
       .uri { builder: UriBuilder ->
         builder
@@ -19,5 +19,4 @@ internal class BuildingsWebTestClient(private val client: RestClient) {
       }
       .accept(MediaType.APPLICATION_JSON)
       .retrieveAsEntity<R>()
-  }
 }

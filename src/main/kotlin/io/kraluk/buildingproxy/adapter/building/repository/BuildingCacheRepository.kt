@@ -27,9 +27,7 @@ class NoOpBuildingCacheRepository : BuildingCacheRepository {
     // Do nothing
   }
 
-  override fun findById(id: Long): Building? {
-    return null
-  }
+  override fun findById(id: Long): Building? = null
 }
 
 @ConditionalOnExpression("#{\${app.building.cache.enabled:false} and \${spring.data.redis.enabled:false}}")
