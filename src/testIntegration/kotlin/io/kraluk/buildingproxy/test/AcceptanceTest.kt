@@ -51,7 +51,7 @@ abstract class AcceptanceTest : IntegrationTest() {
     @JvmStatic
     @Container
     private val redisContainer: GenericContainer<*> =
-      GenericContainer("redis:8.0.1-alpine")
+      GenericContainer("redis:8.0.3-alpine")
         .withExposedPorts(REDIS_PORT)
         .withNetwork(Network.newNetwork())
         .withNetworkAliases("redis")
@@ -61,7 +61,7 @@ abstract class AcceptanceTest : IntegrationTest() {
     @JvmStatic
     @Container
     private val toxiProxyContainer: ToxiproxyContainer =
-      ToxiproxyContainer("ghcr.io/shopify/toxiproxy:2.11.0")
+      ToxiproxyContainer("ghcr.io/shopify/toxiproxy:2.12.0")
         .withNetwork(redisContainer.network)
         .withReuse(true)
 
