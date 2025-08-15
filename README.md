@@ -2,9 +2,9 @@
 
 `building-proxy` is a simple proxy `kontakt.io`'s
 [Location & Occupancy API](https://developer.kontakt.io/docs/dev-ctr-loc-occ-api/c6bcb378b0df8-location-and-occupancy) to fetch the
-buildings data and caches it in Redis.
+buildings' data and caches it in Redis.
 
-The application is written in Java 21 using Gradle 8 and Spring Boot 3 with enabled Virtual Threads support.
+The application is written in Java 21 using Gradle 9 and Spring Boot 3 with enabled Virtual Threads support.
 
 Some kind of variation of the Clean Architecture has been used in the project to organise the code.
 
@@ -46,9 +46,9 @@ the application would have a separate cache what potentially can increase the tr
     [singleton containers](https://java.testcontainers.org/test_framework_integration/manual_lifecycle_control/)
   * potentially [reusable containers](https://java.testcontainers.org/features/reuse/) can be used as well but only
     for the local development
-* prepare performance tests to check how the application behaves under the load using, using for example, `gatling`
+* prepare performance tests to check how the application behaves under the load using, for example, `gatling`
 * consider mapping GeoJsons to a proper data structure to make it easier to work with them, not just passing them through
-  * for example using `jackson`'s [postgis-geojson](https://github.com/GeosatCO/postgis-geojson)
+  * for example, using `jackson`'s [postgis-geojson](https://github.com/GeosatCO/postgis-geojson)
     or [geojson-jackson](https://github.com/opendatalab-de/geojson-jackson) extensions would be good enough
 
 ## Way of working
@@ -60,7 +60,7 @@ the application would have a separate cache what potentially can increase the tr
 * reformat code base `./gradlew ktlintFormat`
 * perform static analysis `./gradlew detekt`
 
-## Developers area
+## Developers' area
 
 ### Running locally
 
@@ -69,7 +69,7 @@ the application would have a separate cache what potentially can increase the tr
 
 ### testcontainers with Colima
 
-To use properly `testcontainers` with Colima, Add following environment variables to your shell profile (e.g.
+To use properly `testcontainers` with Colima, add the following environment variables to your shell profile (e.g.
 `~/.bash_profile` or `~/.zprofile`):
 
 ```bash
