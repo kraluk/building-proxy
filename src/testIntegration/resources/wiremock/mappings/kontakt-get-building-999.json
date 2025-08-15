@@ -7,7 +7,7 @@
     "status": 503,
     "bodyFileName": "kontakt/get-building-999.json",
     "headers": {
-      "Content-Type": "application/json",
+      "Content-Type": "application/problem+json",
       "Api-Version": "00000000-0000-0000-0000-000000000000"
     }
   }
