@@ -17,6 +17,6 @@ internal class BuildingsWebTestClient(private val client: RestClient) {
           .pathSegment("{id}")
           .build(id)
       }
-      .accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_PROBLEM_JSON)
+      .accept(MediaType.APPLICATION_JSON)
       .retrieveAsEntity<R>()
 }

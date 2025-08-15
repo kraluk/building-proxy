@@ -7,7 +7,7 @@
     "status": 404,
     "bodyFileName": "kontakt/get-building-666.json",
     "headers": {
-      "Content-Type": "application/problem+json",
+      "Content-Type": "application/json",
       "Api-Version": "00000000-0000-0000-0000-000000000000"
     }
   }
