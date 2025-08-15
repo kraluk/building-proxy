@@ -4,8 +4,8 @@ services:
     ports:
       - '8088:8080'
     volumes:
-      - ./src/integrationTest/resources/wiremock/__files:/home/wiremock/__files
-      - ./src/integrationTest/resources/wiremock/mappings:/home/wiremock/mappings
+      - ./src/testIntegration/resources/wiremock/__files:/home/wiremock/__files
+      - ./src/testIntegration/resources/wiremock/mappings:/home/wiremock/mappings
 
   redis:
     image: redis:8.0.3-alpine
