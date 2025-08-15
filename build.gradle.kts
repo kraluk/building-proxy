@@ -1,4 +1,6 @@
+import io.gitlab.arturbosch.detekt.getSupportedKotlinVersion
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
@@ -19,13 +21,6 @@ plugins {
 group = "io.kraluk"
 version = "0.0.1-SNAPSHOT"
 
-val testIntegrationImplementation: Configuration = configurations.create("testIntegrationImplementation")
-  .extendsFrom(configurations.testImplementation.get())
-val testIntegrationRuntimeOnly: Configuration = configurations.create("testIntegrationRuntimeOnly")
-  .extendsFrom(configurations.testRuntimeOnly.get())
-
-val mockitoAgent = configurations.create("mockitoAgent")
-
 java {
   toolchain {
     languageVersion = JavaLanguageVersion.of(jvm.versions.java.get().toInt())
@@ -38,6 +33,19 @@ kotlin {
     freeCompilerArgs.addAll("-Xjsr305=strict")
   }
 }
+val testIntegration: SourceSet by sourceSets.creating {
+  compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
+  runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output
+}
+
+val testIntegrationImplementation: Configuration by configurations.getting {
+  extendsFrom(configurations.testImplementation.get())
+}
+val testIntegrationRuntimeOnly: Configuration by configurations.getting {
+  extendsFrom(configurations.testRuntimeOnly.get())
+}
+
+val mockitoAgent: Configuration = configurations.create("mockitoAgent")
 
 repositories {
   mavenCentral()
@@ -93,22 +101,15 @@ tasks.test {
     showStandardStreams = true
     exceptionFormat = TestExceptionFormat.FULL
     events(
-      org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
-      org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
-      org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
-      org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_OUT,
+      TestLogEvent.FAILED,
+      TestLogEvent.PASSED,
+      TestLogEvent.SKIPPED,
+      TestLogEvent.STANDARD_OUT,
     )
   }
 }
 
-sourceSets {
-  create("testIntegration") {
-    compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
-    runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output
-  }
-}
-
-val testIntegration = tasks.register<Test>("testIntegration") {
+val testIntegrationTask = tasks.register<Test>("testIntegration") {
   description = "Runs integration tests."
   group = "verification"
   defaultCharacterEncoding = "UTF-8"
@@ -120,15 +121,15 @@ val testIntegration = tasks.register<Test>("testIntegration") {
     showStandardStreams = true
     exceptionFormat = TestExceptionFormat.FULL
     events(
-      org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
-      org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
-      org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
-      org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_OUT,
+      TestLogEvent.FAILED,
+      TestLogEvent.PASSED,
+      TestLogEvent.SKIPPED,
+      TestLogEvent.STANDARD_OUT,
     )
   }
 
-  testClassesDirs = sourceSets["testIntegration"].output.classesDirs
-  classpath = sourceSets["testIntegration"].runtimeClasspath
+  testClassesDirs = testIntegration.output.classesDirs
+  classpath = testIntegration.runtimeClasspath
   shouldRunAfter(tasks.test)
 
   finalizedBy(tasks.jacocoTestReport)
@@ -137,10 +138,10 @@ val testIntegration = tasks.register<Test>("testIntegration") {
 // customize if needed: https://docs.gradle.org/current/userguide/jacoco_plugin.html
 // reports are in build/reports/jacoco as index.html
 tasks.jacocoTestReport {
-  dependsOn(testIntegration) // all tests are required to run before generating the report
+  dependsOn(testIntegrationTask) // all tests are required to run before generating the report
 }
 
-tasks.check { dependsOn(testIntegration) }
+tasks.check { dependsOn(testIntegrationTask) }
 
 ktlint {
   version.set(rootProject.toolLibs.versions.ktlint)
@@ -169,7 +170,7 @@ project.afterEvaluate {
   // https://detekt.dev/docs/gettingstarted/gradle/#dependencies
   configurations["detekt"].resolutionStrategy.eachDependency {
     if (requested.group == "org.jetbrains.kotlin") {
-      useVersion(io.gitlab.arturbosch.detekt.getSupportedKotlinVersion())
+      useVersion(getSupportedKotlinVersion())
     }
   }
 }
