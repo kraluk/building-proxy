@@ -27,12 +27,12 @@ class AsyncConfiguration {
 }
 
 /**
- * Support configuration for Spring [org.springframework.scheduling.annotation.Async] methods via [AsyncSupportConfiguration] - it's needed
- * to provide custom exception handler and custom executor.
+ * Support configuration for Spring [org.springframework.scheduling.annotation.Async] methods via [AsyncSupportConfiguration]
+ * - it's necessary to provide custom exception handler and custom executor.
  */
 @Configuration
 class AsyncSupportConfiguration(
-  @Qualifier("asyncTaskExecutor") private val asyncTaskExecutor: SimpleAsyncTaskExecutor,
+  @param:Qualifier("asyncTaskExecutor") private val asyncTaskExecutor: SimpleAsyncTaskExecutor,
   private val exceptionHandler: AsyncUncaughtExceptionHandler,
 ) : AsyncConfigurer {
 

@@ -36,7 +36,7 @@ class WebBuildingRepository(
   private fun queryBuildingById(id: Long): Building? =
     client.findById(id)
       .also {
-        // maybe it should not be responsibility of the repository to handle this kind of logic...
+        // maybe it should not be the responsibility of the repository to handle this kind of logic...
         if (it.page.totalElements != 1) {
           throw BuildingHasTooManyFloorsException("There is more than one building per single id '$id'! - '$it'")
         }
