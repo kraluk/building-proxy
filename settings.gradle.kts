@@ -6,8 +6,8 @@ dependencyResolutionManagement {
       version("java", "21")
     }
     create("libs") {
-      plugin("kotlin.jvm", "org.jetbrains.kotlin.jvm").version("2.2.10")
-      plugin("kotlin.spring", "org.jetbrains.kotlin.plugin.spring").version("2.2.10")
+      plugin("kotlin.jvm", "org.jetbrains.kotlin.jvm").version("2.2.20")
+      plugin("kotlin.spring", "org.jetbrains.kotlin.plugin.spring").version("2.2.20")
 
       plugin("spring.boot", "org.springframework.boot").version("3.5.5")
       plugin("spring.dependencyManagement", "io.spring.dependency-management").version("1.1.7")
@@ -17,7 +17,7 @@ dependencyResolutionManagement {
 
       plugin("versions", "com.github.ben-manes.versions").version("0.52.0")
 
-      version("springDoc", "2.8.11")
+      version("springDoc", "2.8.13")
       version("resilience4j", "2.3.0")
       version("redisson", "3.51.0")
     }
