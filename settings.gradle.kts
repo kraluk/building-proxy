@@ -9,17 +9,17 @@ dependencyResolutionManagement {
       plugin("kotlin.jvm", "org.jetbrains.kotlin.jvm").version("2.2.20")
       plugin("kotlin.spring", "org.jetbrains.kotlin.plugin.spring").version("2.2.20")
 
-      plugin("spring.boot", "org.springframework.boot").version("3.5.5")
+      plugin("spring.boot", "org.springframework.boot").version("3.5.6")
       plugin("spring.dependencyManagement", "io.spring.dependency-management").version("1.1.7")
 
       plugin("ktlint", "org.jlleitschuh.gradle.ktlint").version("13.1.0")
       plugin("detekt", "io.gitlab.arturbosch.detekt").version("1.23.8")
 
-      plugin("versions", "com.github.ben-manes.versions").version("0.52.0")
+      plugin("versions", "com.github.ben-manes.versions").version("0.53.0")
 
       version("springDoc", "2.8.13")
       version("resilience4j", "2.3.0")
-      version("redisson", "3.51.0")
+      version("redisson", "3.52.0")
     }
     create("testLibs") {
       version("awaitility", "4.3.0")
