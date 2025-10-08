@@ -6,6 +6,9 @@ spring:
       timeout: PT0.03S
       connectTimeout: PT0.1S
 
+server:
+  shutdown: immediate
+
 management:
   metrics:
     enable:
