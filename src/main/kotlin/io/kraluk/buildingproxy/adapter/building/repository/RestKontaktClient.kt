@@ -24,7 +24,7 @@ import java.time.Duration
  */
 @Component
 class RestKontaktClient(
-  @Qualifier("kontaktRestClient") private val client: RestClient,
+  @param:Qualifier("kontaktRestClient") private val client: RestClient,
   private val mapper: ObjectMapper,
   private val properties: KontaktClientProperties,
 ) : KontaktClient {

@@ -1,6 +1,7 @@
 import io.gitlab.arturbosch.detekt.getSupportedKotlinVersion
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
@@ -21,18 +22,16 @@ plugins {
 group = "io.kraluk"
 version = "0.0.1-SNAPSHOT"
 
-java {
-  toolchain {
+kotlin {
+  jvmToolchain {
     languageVersion = JavaLanguageVersion.of(jvm.versions.java.get().toInt())
   }
-}
-
-kotlin {
-  jvmToolchain(jvm.versions.java.get().toInt())
   compilerOptions {
+    jvmTarget = JvmTarget.fromTarget(jvm.versions.java.get())
     freeCompilerArgs.addAll("-Xjsr305=strict")
   }
 }
+
 val testIntegration: SourceSet by sourceSets.creating {
   compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
   runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output

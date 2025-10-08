@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 @Primary
 @Component
 class CacheAwareBuildingRepository(
-  @Qualifier("webBuildingRepository") private val repository: BuildingRepository,
+  @param:Qualifier("webBuildingRepository") private val repository: BuildingRepository,
   private val cacheRepository: BuildingCacheRepository,
 ) : BuildingRepository {
 
