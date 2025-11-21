@@ -98,13 +98,17 @@ private class InMemoryKontaktClient : KontaktClient {
 
   override fun findById(id: Long): KontaktBuildings =
     when (id) {
-      FINDABLE_ID -> kontaktBuildings(
-        content = listOf(kontaktBuilding(id = 1L, name = "Pałac w Radzionkowie")),
-      )
+      FINDABLE_ID -> {
+        kontaktBuildings(
+          content = listOf(kontaktBuilding(id = 1L, name = "Pałac w Radzionkowie")),
+        )
+      }
 
-      EMPTY_LIST_ID -> kontaktBuildings(
-        content = listOf(),
-      )
+      EMPTY_LIST_ID -> {
+        kontaktBuildings(
+          content = listOf(),
+        )
+      }
 
       NOT_FOUND_ID -> {
         throw HttpClientErrorException.create(
@@ -116,10 +120,12 @@ private class InMemoryKontaktClient : KontaktClient {
         )
       }
 
-      MORE_THAN_ONE_BUILDING_PER_ID -> kontaktBuildings(
-        content = listOf(kontaktBuilding(), kontaktBuilding()),
-        page = kontaktPage(totalElements = 2),
-      )
+      MORE_THAN_ONE_BUILDING_PER_ID -> {
+        kontaktBuildings(
+          content = listOf(kontaktBuilding(), kontaktBuilding()),
+          page = kontaktPage(totalElements = 2),
+        )
+      }
 
       else -> {
         throw HttpServerErrorException.create(

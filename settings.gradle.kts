@@ -12,7 +12,7 @@ dependencyResolutionManagement {
       plugin("spring.boot", "org.springframework.boot").version("3.5.8")
       plugin("spring.dependencyManagement", "io.spring.dependency-management").version("1.1.7")
 
-      plugin("ktlint", "org.jlleitschuh.gradle.ktlint").version("13.1.0")
+      plugin("ktlint", "org.jlleitschuh.gradle.ktlint").version("14.0.1")
       plugin("detekt", "io.gitlab.arturbosch.detekt").version("1.23.8")
 
       plugin("versions", "com.github.ben-manes.versions").version("0.53.0")
@@ -30,7 +30,7 @@ dependencyResolutionManagement {
       version("testcontainers", "2.0.2")
     }
     create("toolLibs") {
-      version("ktlint", "1.7.1")
+      version("ktlint", "1.8.0")
     }
   }
 }

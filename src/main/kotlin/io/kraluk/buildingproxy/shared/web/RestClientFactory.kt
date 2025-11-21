@@ -96,9 +96,11 @@ object RestClientFactory {
     exchange(
       { _, response ->
         when {
-          response.statusCode.is2xxSuccessful -> response
+          response.statusCode.is2xxSuccessful -> {
+            response
+          }
 
-          response.statusCode.is4xxClientError ->
+          response.statusCode.is4xxClientError -> {
             throw HttpClientErrorException.create(
               response.statusCode,
               response.statusText,
@@ -106,8 +108,9 @@ object RestClientFactory {
               response.use { it.body.readBytes() },
               UTF_8,
             )
+          }
 
-          else ->
+          else -> {
             throw HttpServerErrorException.create(
               response.statusCode,
               response.statusText,
@@ -115,6 +118,7 @@ object RestClientFactory {
               response.use { it.body.readBytes() },
               UTF_8,
             )
+          }
         }
       },
       false,
