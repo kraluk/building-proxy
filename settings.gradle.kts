@@ -9,7 +9,7 @@ dependencyResolutionManagement {
       plugin("kotlin.jvm", "org.jetbrains.kotlin.jvm").version("2.2.21")
       plugin("kotlin.spring", "org.jetbrains.kotlin.plugin.spring").version("2.2.21")
 
-      plugin("spring.boot", "org.springframework.boot").version("3.5.7")
+      plugin("spring.boot", "org.springframework.boot").version("3.5.8")
       plugin("spring.dependencyManagement", "io.spring.dependency-management").version("1.1.7")
 
       plugin("ktlint", "org.jlleitschuh.gradle.ktlint").version("13.1.0")
@@ -17,7 +17,7 @@ dependencyResolutionManagement {
 
       plugin("versions", "com.github.ben-manes.versions").version("0.53.0")
 
-      version("springDoc", "2.8.13")
+      version("springDoc", "2.8.14")
       version("resilience4j", "2.3.0")
       version("redisson", "3.52.0")
     }
