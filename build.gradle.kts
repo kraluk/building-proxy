@@ -82,6 +82,7 @@ dependencies {
   testImplementation("org.skyscreamer:jsonassert:${testLibs.versions.jsonassert.get()}")
 
   testIntegrationImplementation("org.springframework.boot:spring-boot-testcontainers")
+  testIntegrationImplementation("org.testcontainers:testcontainers:${testLibs.versions.testcontainers.get()}")
   testIntegrationImplementation("org.testcontainers:testcontainers-junit-jupiter:${testLibs.versions.testcontainers.get()}")
   testIntegrationImplementation("org.testcontainers:testcontainers-toxiproxy:${testLibs.versions.testcontainers.get()}")
   testIntegrationImplementation(
