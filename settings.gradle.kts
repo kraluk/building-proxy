@@ -27,6 +27,7 @@ dependencyResolutionManagement {
       version("mockitoKotlin", "6.1.0")
       version("jsonassert", "2.0-rc1")
       version("springCloudContractWiremock", "4.3.0")
+      version("testcontainers", "2.0.2")
     }
     create("toolLibs") {
       version("ktlint", "1.7.1")
