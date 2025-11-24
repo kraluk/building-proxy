@@ -1,5 +1,7 @@
 # building-proxy
 
+[![CI](https://github.com/kraluk/building-proxy/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/kraluk/obuilding-proxy/actions/workflows/ci.yaml)
+
 `building-proxy` is a simple proxy `kontakt.io`'s
 [Location & Occupancy API](https://developer.kontakt.io/docs/dev-ctr-loc-occ-api/c6bcb378b0df8-location-and-occupancy) to fetch the
 buildings' data and caches it in Redis.
