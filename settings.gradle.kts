@@ -6,8 +6,8 @@ dependencyResolutionManagement {
       version("java", "21")
     }
     create("libs") {
-      plugin("kotlin.jvm", "org.jetbrains.kotlin.jvm").version("2.2.21")
-      plugin("kotlin.spring", "org.jetbrains.kotlin.plugin.spring").version("2.2.21")
+      plugin("kotlin.jvm", "org.jetbrains.kotlin.jvm").version("2.3.0")
+      plugin("kotlin.spring", "org.jetbrains.kotlin.plugin.spring").version("2.3.0")
 
       plugin("spring.boot", "org.springframework.boot").version("3.5.9")
       plugin("spring.dependencyManagement", "io.spring.dependency-management").version("1.1.7")
