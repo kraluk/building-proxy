@@ -17,7 +17,7 @@ dependencyResolutionManagement {
 
       plugin("versions", "com.github.ben-manes.versions").version("0.53.0")
 
-      version("springDoc", "2.8.14")
+      version("springDoc", "2.8.15")
       version("resilience4j", "2.3.0")
       version("redisson", "3.52.0")
     }
