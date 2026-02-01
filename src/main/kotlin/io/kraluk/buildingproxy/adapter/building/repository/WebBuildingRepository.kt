@@ -44,7 +44,7 @@ class WebBuildingRepository(
       .content
       .firstOrNull()
       ?.toDomain()
-      ?: null.also { log.warn("Building with id '{}' has not content!", id) }
+      ?: null.also { log.warn("Building with id '{}' has no content!", id) }
 
   companion object {
     private val log by logger()

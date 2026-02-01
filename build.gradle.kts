@@ -55,13 +55,13 @@ dependencies {
 
   implementation("org.springframework.boot:spring-boot-starter")
   implementation("org.springframework.boot:spring-boot-starter-web")
+  implementation("org.springframework.boot:spring-boot-starter-restclient")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("org.springframework.boot:spring-boot-starter-logging")
-  implementation("org.springframework.boot:spring-boot-starter-aop")
+  implementation("org.springframework.boot:spring-boot-starter-aspectj")
   implementation("org.redisson:redisson-spring-boot-starter:${libs.versions.redisson.get()}")
 
-  implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-  implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+  implementation("tools.jackson.module:jackson-module-kotlin")
 
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:${libs.versions.springDoc.get()}")
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${libs.versions.springDoc.get()}")
@@ -82,12 +82,11 @@ dependencies {
   testImplementation("org.skyscreamer:jsonassert:${testLibs.versions.jsonassert.get()}")
 
   testIntegrationImplementation("org.springframework.boot:spring-boot-testcontainers")
-  testIntegrationImplementation("org.testcontainers:testcontainers:${testLibs.versions.testcontainers.get()}")
-  testIntegrationImplementation("org.testcontainers:testcontainers-junit-jupiter:${testLibs.versions.testcontainers.get()}")
-  testIntegrationImplementation("org.testcontainers:testcontainers-toxiproxy:${testLibs.versions.testcontainers.get()}")
-  testIntegrationImplementation(
-    "org.springframework.cloud:spring-cloud-contract-wiremock:${testLibs.versions.springCloudContractWiremock.get()}",
-  )
+  testIntegrationImplementation("org.springframework.boot:spring-boot-starter-restclient-test")
+  testIntegrationImplementation("org.testcontainers:testcontainers")
+  testIntegrationImplementation("org.testcontainers:testcontainers-junit-jupiter")
+  testIntegrationImplementation("org.testcontainers:testcontainers-toxiproxy:")
+  testIntegrationImplementation("org.wiremock.integrations:wiremock-spring-boot:${testLibs.versions.springWiremock.get()}")
 
   mockitoAgent("org.mockito:mockito-core:${dependencyManagement.importedProperties["mockito.version"]}") { isTransitive = false }
 }
@@ -167,7 +166,7 @@ detekt {
 }
 
 project.afterEvaluate {
-  // https://detekt.dev/docs/gettingstarted/gradle/#dependencies
+  // https://detekt.dev/docs/1.23.8/gettingstarted/gradle#gradle-runtime-dependencies
   configurations["detekt"].resolutionStrategy.eachDependency {
     if (requested.group == "org.jetbrains.kotlin") {
       useVersion(getSupportedKotlinVersion())

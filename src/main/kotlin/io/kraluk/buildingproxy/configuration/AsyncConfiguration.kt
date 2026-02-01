@@ -45,7 +45,7 @@ class AsyncSupportConfiguration(
 
 class LoggingAsyncUncaughtExceptionHandler : AsyncUncaughtExceptionHandler {
 
-  override fun handleUncaughtException(throwable: Throwable, method: Method, vararg params: Any) {
+  override fun handleUncaughtException(throwable: Throwable, method: Method, vararg params: Any?) {
     log.error("Uncaught exception in async method '{}' with parameters '{}'", method, params, throwable)
   }
 

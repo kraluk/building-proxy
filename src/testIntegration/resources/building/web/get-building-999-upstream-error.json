@@ -1,5 +1,4 @@
 {
-  "type": "about:blank",
   "title": "Internal Server Error",
   "status": 500,
   "detail": "Cannot process query to the upstream service due to the following internal system error - 'Upstream server error while fetching building with id '999''",

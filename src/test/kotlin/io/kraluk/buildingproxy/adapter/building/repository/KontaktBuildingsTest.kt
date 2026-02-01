@@ -1,10 +1,10 @@
 package io.kraluk.buildingproxy.adapter.building.repository
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import io.kraluk.buildingproxy.test.contentOf
 import org.amshove.kluent.shouldHaveSize
 import org.junit.jupiter.api.Test
+import tools.jackson.module.kotlin.jacksonObjectMapper
+import tools.jackson.module.kotlin.readValue
 
 class KontaktBuildingsTest {
 

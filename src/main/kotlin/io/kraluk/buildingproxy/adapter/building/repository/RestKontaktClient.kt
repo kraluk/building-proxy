@@ -1,7 +1,5 @@
 package io.kraluk.buildingproxy.adapter.building.repository
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import io.kraluk.buildingproxy.shared.logger
 import io.kraluk.buildingproxy.shared.web.BaseClientProperties
 import io.kraluk.buildingproxy.shared.web.RestClientFactory
@@ -14,6 +12,8 @@ import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestClient
 import org.springframework.web.util.UriBuilder
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.module.kotlin.readValue
 import java.time.Duration
 
 /**
@@ -25,7 +25,7 @@ import java.time.Duration
 @Component
 class RestKontaktClient(
   @param:Qualifier("kontaktRestClient") private val client: RestClient,
-  private val mapper: ObjectMapper,
+  private val mapper: JsonMapper,
   private val properties: KontaktClientProperties,
 ) : KontaktClient {
   override fun findById(id: Long): KontaktBuildings =

@@ -12,18 +12,18 @@ internal inline fun <reified T : Any> RestClient.RequestHeadersSpec<*>.retrieveA
     .onErrorProceed()
     .toEntity<T>()
 
-internal inline fun <reified T> ResponseEntity<T>.expectStatusCode(status: HttpStatus): ResponseEntity<T> {
+internal inline fun <reified T : Any> ResponseEntity<T>.expectStatusCode(status: HttpStatus): ResponseEntity<T> {
   statusCode.value() `should be equal to` status.value()
   return this
 }
 
-internal inline fun <reified T> ResponseEntity<T>.expectStatusCodeOk() =
+internal inline fun <reified T : Any> ResponseEntity<T>.expectStatusCodeOk() =
   expectStatusCode(HttpStatus.OK)
 
-internal inline fun <reified T> ResponseEntity<T>.expectContentType(value: String): ResponseEntity<T> =
+internal inline fun <reified T : Any> ResponseEntity<T>.expectContentType(value: String): ResponseEntity<T> =
   expectHeader(HttpHeaders.CONTENT_TYPE, value)
 
-internal inline fun <reified T> ResponseEntity<T>.expectHeader(header: String, value: String): ResponseEntity<T> {
+internal inline fun <reified T : Any> ResponseEntity<T>.expectHeader(header: String, value: String): ResponseEntity<T> {
   headers.getOrEmpty(header).first() `should be equal to` value
   return this
 }

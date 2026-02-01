@@ -1,17 +1,20 @@
 package io.kraluk.buildingproxy.test.web
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import org.springframework.boot.restclient.RootUriTemplateHandler
 import org.springframework.boot.test.context.TestConfiguration
-import org.springframework.boot.test.web.client.LocalHostUriTemplateHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.core.env.Environment
+import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatusCode
 import org.springframework.http.client.ClientHttpResponse
 import org.springframework.http.client.JdkClientHttpRequestFactory
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter
 import org.springframework.web.client.DefaultResponseErrorHandler
 import org.springframework.web.client.RestClient
 import org.springframework.web.util.DefaultUriBuilderFactory
 import org.springframework.web.util.UriBuilder
+import org.springframework.web.util.UriTemplateHandler
+import tools.jackson.databind.json.JsonMapper
 import java.net.URI
 import java.net.http.HttpClient
 
@@ -19,7 +22,7 @@ import java.net.http.HttpClient
 class TestRestClientTestConfiguration {
 
   @Bean("testRestClient")
-  fun testRestClient(environment: Environment, mapper: ObjectMapper): RestClient {
+  fun testRestClient(environment: Environment, mapper: JsonMapper): RestClient {
     val uriBuilderFactory = LocalHostUriBuilderFactory(environment)
 
     val httpClient = HttpClient.newBuilder()
@@ -28,11 +31,7 @@ class TestRestClientTestConfiguration {
       .build()
 
     return RestClient.builder()
-      .messageConverters { converters ->
-        converters
-          .filterIsInstance<MappingJackson2HttpMessageConverter>()
-          .forEach { converter -> converter.objectMapper = mapper }
-      }
+      // .configureMessageConverters { c -> c.withJsonConverter(JacksonJsonHttpMessageConverter(mapper)) }
       .uriBuilderFactory(uriBuilderFactory)
       .defaultStatusHandler(NoOpErrorStatusHandler())
       .requestFactory(JdkClientHttpRequestFactory(httpClient))
@@ -43,7 +42,7 @@ class TestRestClientTestConfiguration {
 internal class LocalHostUriBuilderFactory(environment: Environment) : DefaultUriBuilderFactory() {
   private val delegate = LocalHostUriTemplateHandler(environment)
 
-  override fun expand(uriTemplate: String, vararg uriVariables: Any): URI =
+  override fun expand(uriTemplate: String, vararg uriVariables: Any?): URI =
     delegate.expand(uriTemplate, *uriVariables)
 
   override fun uriString(uriTemplate: String): UriBuilder =
@@ -54,7 +53,29 @@ internal class LocalHostUriBuilderFactory(environment: Environment) : DefaultUri
 }
 
 internal class NoOpErrorStatusHandler : DefaultResponseErrorHandler() {
-  override fun handleError(response: ClientHttpResponse) {
+  override fun handleError(
+    response: ClientHttpResponse,
+    statusCode: HttpStatusCode,
+    url: URI?,
+    method: HttpMethod?,
+  ) {
     // noop as we want to make assertions on non-200 responses in tests
+  }
+}
+
+class LocalHostUriTemplateHandler(
+  private val environment: Environment,
+  private val scheme: String = "http",
+  handler: UriTemplateHandler = DefaultUriBuilderFactory(),
+) : RootUriTemplateHandler(handler) {
+
+  override fun getRootUri(): String {
+    val port = this.environment.getProperty("local.server.port", "8080")
+    val contextPath = this.environment.getProperty(PREFIX + "context-path", "")
+    return this.scheme + "://localhost:" + port + contextPath
+  }
+
+  companion object {
+    private const val PREFIX = "server.servlet."
   }
 }

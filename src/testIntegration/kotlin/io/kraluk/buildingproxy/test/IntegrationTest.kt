@@ -5,16 +5,25 @@ import io.kraluk.buildingproxy.test.web.TestRestClientTestConfiguration
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.web.client.RestClient
+import org.wiremock.spring.ConfigureWireMock
+import org.wiremock.spring.EnableWireMock
+import org.wiremock.spring.InjectWireMock
 
 @ActiveProfiles("integration")
 @SpringBootTest(
   webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
 )
-@AutoConfigureWireMock(port = 0)
+@EnableWireMock(
+  value = [
+    ConfigureWireMock(
+      registerSpringBean = true,
+      filesUnderClasspath = "wiremock/",
+    ),
+  ],
+)
 @Import(TestRestClientTestConfiguration::class)
 abstract class IntegrationTest {
 
@@ -22,6 +31,6 @@ abstract class IntegrationTest {
   @Autowired
   protected lateinit var testRestClient: RestClient
 
-  @Autowired
+  @InjectWireMock
   protected lateinit var wireMock: WireMockServer
 }
