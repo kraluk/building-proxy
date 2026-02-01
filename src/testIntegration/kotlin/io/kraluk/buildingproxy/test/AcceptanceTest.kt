@@ -51,7 +51,7 @@ abstract class AcceptanceTest : IntegrationTest() {
     @JvmStatic
     @Container
     private val redisContainer: GenericContainer<*> =
-      GenericContainer("redis:8.4.0-alpine")
+      GenericContainer("valkey/valkey:9.0.1-alpine")
         .withExposedPorts(REDIS_PORT)
         .withNetwork(Network.newNetwork())
         .withNetworkAliases("redis")
