@@ -3,7 +3,7 @@ rootProject.name = "building-proxy"
 dependencyResolutionManagement {
   versionCatalogs {
     create("jvm") {
-      version("java", "21")
+      version("java", "25")
     }
     create("libs") {
       plugin("kotlin.jvm", "org.jetbrains.kotlin.jvm").version("2.3.0")
