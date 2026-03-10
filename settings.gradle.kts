@@ -13,7 +13,7 @@ dependencyResolutionManagement {
       plugin("spring.dependencyManagement", "io.spring.dependency-management").version("1.1.7")
 
       plugin("ktlint", "org.jlleitschuh.gradle.ktlint").version("14.1.0")
-      plugin("detekt", "io.gitlab.arturbosch.detekt").version("1.23.8")
+      plugin("detekt", "dev.detekt").version("2.0.0-alpha.2")
 
       plugin("versions", "com.github.ben-manes.versions").version("0.53.0")
 
