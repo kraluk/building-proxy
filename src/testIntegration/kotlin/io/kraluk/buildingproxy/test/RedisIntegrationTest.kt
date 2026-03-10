@@ -27,7 +27,7 @@ class RedisTestConfiguration {
   @Bean
   @ServiceConnection(name = "redis")
   fun redisContainer(): GenericContainer<*> =
-    GenericContainer("valkey/valkey:9.0.1-alpine")
+    GenericContainer("valkey/valkey:9.0.3-alpine")
       .withExposedPorts(6379)
       .withReuse(true)
 }

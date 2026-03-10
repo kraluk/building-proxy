@@ -8,6 +8,6 @@ services:
       - ./src/testIntegration/resources/wiremock/mappings:/home/wiremock/mappings
 
   redis:
-    image: valkey/valkey:9.0.1-alpine
+    image: valkey/valkey:9.0.3-alpine
     ports:
       - '6379:6379'
